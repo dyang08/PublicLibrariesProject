@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="93779FC4-8C4B-8AA5-6CB4-BBE8914CE945" name="LIBRARIES">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:11:29 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<shortName>LIBS</shortName>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="LIBRARY_ID" id="DA6D3497-F532-C38B-8512-9B69066C0BEF">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:12:12 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="NAME" id="41151B11-CA2D-CD7A-A001-3D7A8A1B8672">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:12:37 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="ADDRESS" id="5E0CB0CD-71B3-AA90-78FF-F7A409CF693B">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:12:43 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="PHONE" id="52FE0B00-4F18-DD8E-8140-F32F0F6ADC2F">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:13:01 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+</attributes>
+</Entity>

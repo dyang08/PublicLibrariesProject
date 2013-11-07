@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0395A955-87DA-10B3-F03F-86AB401BAC05" name="LIBRARIES">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>8772A4BF-D1DC-594B-C618-B8EFF734A079</importedID>
+<abbreviation>LIBS</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LIBRARY_ID" id="A2B23AFF-A316-3AB6-3ED3-7ADAB47C9CBB">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>C18198D9-EAAA-9664-51CC-08423B55537A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NAME" id="45663354-4392-2029-7882-4E470D966F58">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>F68C22E8-1219-05B6-1F92-D425B25EF41A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ADDRESS" id="BDD2C358-CC73-3FC7-032C-6FC6620CAF30">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>E8A5E194-1698-6DBA-0311-36A93C547085</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9B19EBE3-4AA1-2C3A-4B29-B0F720324565" name="LIBRARIES_PK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>03002885-5F28-0DCB-AC18-0CB5A9153541</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A2B23AFF-A316-3AB6-3ED3-7ADAB47C9CBB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

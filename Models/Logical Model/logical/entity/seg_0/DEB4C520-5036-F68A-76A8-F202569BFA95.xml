@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="DEB4C520-5036-F68A-76A8-F202569BFA95" name="ROOM_RESERVATIONS">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:18:22 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<shortName>RM_RSVS</shortName>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="RESERVATION_ID" id="98494775-6D97-74B3-2AC0-9FC57FC29FB6">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:18:46 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="DAY" id="6CEA3527-FBE1-2C07-2724-09CCB1935A56">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:18:58 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="START_TIME" id="834C452E-4DCB-2260-0698-2A446D31A3B9">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:19:09 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="END_TIME" id="D7CEBD97-D1BA-EE25-F8FD-04CEA0EB9DA3">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:19:13 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+</attributes>
+</Entity>

@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D2323C20-AD5C-C71D-5D83-582540B1B2E7" name="PERSON">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:47 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<abbreviation>PERS</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="PERSON_ID" id="EDB75C12-0236-E11F-D08F-A860AC5B31C6">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FIRST_NAME" id="A6A37797-F4C1-9A6F-DEAF-3C872033654C">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LAST_NAME" id="3F161523-F279-081E-DF67-905FB3EA8B69">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ADDRESS" id="B13B9E03-9606-3C47-B5E6-FD41F5F2FA87">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PHONE" id="CE7D1150-4499-29A3-FBFD-A85B41E1D8C3">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9DFEEEBB-8886-C510-B5BD-5513F13CB7CC" name="PERSON_PK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:58:28 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EDB75C12-0236-E11F-D08F-A860AC5B31C6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

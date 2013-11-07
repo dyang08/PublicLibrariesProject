@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6E14B2F7-19A9-DEDE-2699-BC3CE31709F9" name="LIBRARY_HOURS">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>FBEAA585-FFE7-9371-983C-8072B317348B</importedID>
+<abbreviation>LIB_HR</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LIBRARY_ID_FK" id="FB4E7EBC-584C-8FED-1B34-E9CBA5A4AB2F">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>F525A3BD-2B09-695B-6B2E-E5A38B8A0399</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY" id="D421BD22-94B8-ADB0-9DB3-4960BB133112">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>F04C4E02-0201-D9E9-E1E5-757598807EF2</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OPEN" id="725939EA-2276-736D-8504-12B88D28637C">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>B46CFD8E-5B7B-FF8E-119B-384DB1879C24</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLOSE" id="AAE172F5-CE77-286E-AAA6-6056A98ABCBE">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>51770B64-62CF-9125-F690-4EE9E8C97833</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+</Table>

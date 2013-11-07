@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="Table" objectID="0395A955-87DA-10B3-F03F-86AB401BAC05" name="LIBRARIES" seqName="seg_0"/>
+   <object objectType="Table" objectID="5997DBE0-4C7B-EF83-CBD3-3D8DB2C8CE8A" name="CUSTOMER" seqName="seg_0"/>
+   <object objectType="Table" objectID="6E14B2F7-19A9-DEDE-2699-BC3CE31709F9" name="LIBRARY_HOURS" seqName="seg_0"/>
+   <object objectType="Table" objectID="A5ACA30D-E27C-AA15-00A9-9E827454CB08" name="ROOMS" seqName="seg_0"/>
+   <object objectType="Table" objectID="B04AAF50-C290-FC3E-DE2B-E904351CDFA8" name="EMPLOYEE" seqName="seg_0"/>
+   <object objectType="Table" objectID="D2323C20-AD5C-C71D-5D83-582540B1B2E7" name="PERSON" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="06CF9A30-5899-E811-EAEE-96F98D0937CC" name="ROOMS_LIBRARIES_FK" seqName="seg_0"/>
+   <object objectType="FKIndexAssociation" objectID="A73B4D2C-9B1A-9486-7410-8B78DF836195" name="EMPLOYEE_PERSON_FK" seqName="seg_0"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

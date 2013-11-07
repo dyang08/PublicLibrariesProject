@@ -1,0 +1,39 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="5997DBE0-4C7B-EF83-CBD3-3D8DB2C8CE8A" name="CUSTOMER">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:00:00 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<abbreviation>CUST</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CUSTOMER_ID" id="BCE07A4A-2549-0FDE-3B69-25470F8898B2">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:01:25 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<use>0</use>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LIBRARY_CARD_NUMBER" id="897A5A66-5393-4AE7-E9E5-671EF4DB8E6A">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:01:25 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DFC5ED1D-A20D-BF37-9042-35A7DAFE1116" name="CUSTOMER_PK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:01:33 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BCE07A4A-2549-0FDE-3B69-25470F8898B2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

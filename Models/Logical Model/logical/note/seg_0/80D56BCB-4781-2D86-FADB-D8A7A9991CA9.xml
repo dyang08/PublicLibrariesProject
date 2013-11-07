@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Note class="oracle.dbtools.crest.model.design.Note" name="Note_1" directorySegmentName="seg_0" id="80D56BCB-4781-2D86-FADB-D8A7A9991CA9">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-07 00:25:18 UTC</createdTime>
+<comment>Not sure if fine will have a relation to items or check-out, also unsure on item&apos;s types</comment>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+</Note>

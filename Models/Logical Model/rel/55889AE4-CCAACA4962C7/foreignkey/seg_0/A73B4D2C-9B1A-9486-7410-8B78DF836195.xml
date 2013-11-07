@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="A73B4D2C-9B1A-9486-7410-8B78DF836195" name="EMPLOYEE_PERSON_FK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 22:02:50 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<containerWithKeyObject>B04AAF50-C290-FC3E-DE2B-E904351CDFA8</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>D03A933E-7818-C929-BDDE-D42C3370C812</localFKIndex>
+<keyObject>9DFEEEBB-8886-C510-B5BD-5513F13CB7CC</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

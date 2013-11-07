@@ -1,0 +1,71 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A5ACA30D-E27C-AA15-00A9-9E827454CB08" name="ROOMS">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>A048836A-1D4E-C84A-5905-09C72880D680</importedID>
+<abbreviation>ROOMS</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ROOM_ID" id="0CEFD08C-EB90-BB27-EDBB-EC878D25B644">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>50A574D8-6C01-A664-54D8-B08C03D20B71</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CAPACITY" id="4CD08490-5104-E75A-F446-66297B24BB1E">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>6FED4693-30F7-788E-A320-E1E136269603</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LIBRARY_ID_FK" id="91D43112-0194-1315-AA42-C3D0CD3AF48F">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>F15D1C56-E485-50C5-0F2D-09484C32BFE5</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<delegate>A2B23AFF-A316-3AB6-3ED3-7ADAB47C9CBB</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="06CF9A30-5899-E811-EAEE-96F98D0937CC" referredColumn="A2B23AFF-A316-3AB6-3ED3-7ADAB47C9CBB"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2B5214A0-D9B9-C115-6716-99366216095B" name="ROOMS_PK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<importedID>A0EA8BAB-FCCF-6654-15BE-3CD72E757EBD</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0CEFD08C-EB90-BB27-EDBB-EC878D25B644"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="74CEA657-9486-1BBE-66B5-EDFADEAED3E5" name="ROOMS_LIBRARIES_FK">
+<createdBy>Work</createdBy>
+<createdTime>2013-11-05 21:56:14 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91D43112-0194-1315-AA42-C3D0CD3AF48F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

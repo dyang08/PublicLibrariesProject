@@ -1,0 +1,68 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E11F4023-F4E5-6531-993C-68FA1EBD76A0" name="ITEMS">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-06 03:13:40 UTC</createdTime>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ITEM_ID" id="0476DB81-0DF7-D66B-EC0F-852678566793">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-06 03:15:25 UTC</createdTime>
+<comment>PRIMARY KEY</comment>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="COPY_NUM" id="BFA547BC-48C0-58CE-712A-3F9B53A60EE3">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-06 03:15:50 UTC</createdTime>
+<comment>Each item may have multiple copies</comment>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="AVAILABILITY" id="DD1B96E6-772C-CCD7-F565-AF9EEAE71A8E">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-06 03:16:47 UTC</createdTime>
+<comment>each item may be available for check out by a customer(boolean type).</comment>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+<Attribute name="TYPE" id="C0661227-3181-6424-C4E6-1E5FA7FD9043">
+<createdBy>Netbook</createdBy>
+<createdTime>2013-11-06 05:41:36 UTC</createdTime>
+<comment>THE TYPE CAN BE SEPARATED INTO A DIFERENT TABLE</comment>
+<ownerDesignName>Logical Model</ownerDesignName>
+<engineerTo>
+<item key="901134CE-D7DD-AA99-CBB7-C7139246D8A2" value="true"/>
+<item key="55889AE4-EE10-05A1-239A-CCAACA4962C7" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+</Attribute>
+</attributes>
+</Entity>
