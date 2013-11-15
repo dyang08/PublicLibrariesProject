@@ -1,3 +1,0 @@
-PublicLibrariesProject
-======================
-README
