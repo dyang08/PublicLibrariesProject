@@ -101,7 +101,8 @@ public class Search extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
-        
+        new Login().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_logButtonActionPerformed
 
     /**
