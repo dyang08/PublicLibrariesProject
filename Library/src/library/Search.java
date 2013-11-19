@@ -8,13 +8,27 @@ import javax.swing.JFrame;
  */
 public class Search extends JFrame {
     Login login;
+    static String username;
     /**
      * Creates new form Search
      */
-    public Search() {
+    public Search(String username) {
         initComponents();
         login = new Login();
+        this.username = username;
+        changeLabels(username);
     }
+    
+    /**
+     * Change userLabel and login to logout
+     * if username's size > 1
+     **/
+    private void changeLabels(String username){
+        if(username.length() > 1){
+            userLabel.setText(username);
+            logButton.setText("logout");
+        }    
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,11 +41,12 @@ public class Search extends JFrame {
 
         searchBar = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        types = new javax.swing.JComboBox();
         logButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        itemTable = new javax.swing.JTable();
         submitButton = new javax.swing.JButton();
+        userLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Search window");
@@ -46,10 +61,10 @@ public class Search extends JFrame {
 
         searchButton.setText("Search");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "Books", "CDs", "DVDs" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "Books", "CDs", "DVDs" }));
+        types.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                typesActionPerformed(evt);
             }
         });
 
@@ -60,7 +75,7 @@ public class Search extends JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -68,7 +83,7 @@ public class Search extends JFrame {
                 "Type", "Item", "Copy #", "Status", "Location", "reserve"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(itemTable);
 
         submitButton.setText("Submit");
 
@@ -83,12 +98,15 @@ public class Search extends JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(types, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchButton))
-                            .addComponent(logButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(logButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(submitButton))
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -97,10 +115,12 @@ public class Search extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(logButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logButton)
+                    .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(types, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
                 .addGap(18, 18, 18)
@@ -113,9 +133,9 @@ public class Search extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void typesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_typesActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
@@ -152,22 +172,25 @@ public class Search extends JFrame {
             java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Search().setVisible(true);
+                String uname = "";
+                new Search(uname).setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JTable itemTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logButton;
     private javax.swing.JTextField searchBar;
     private javax.swing.JButton searchButton;
     private javax.swing.JButton submitButton;
+    private javax.swing.JComboBox types;
+    private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 }
