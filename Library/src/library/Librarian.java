@@ -29,8 +29,8 @@ public class Librarian extends javax.swing.JFrame {
     private void initComponents() {
 
         finesButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        resButton = new javax.swing.JButton();
+        statusChange = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,9 +43,19 @@ public class Librarian extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Reserve room");
+        resButton.setText("Reserve room");
+        resButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Change item status");
+        statusChange.setText("Change item status");
+        statusChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusChangeActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Close window to logout");
 
@@ -56,8 +66,8 @@ public class Librarian extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
+                    .addComponent(statusChange)
+                    .addComponent(resButton)
                     .addComponent(finesButton))
                 .addContainerGap(410, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -73,9 +83,9 @@ public class Librarian extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addComponent(finesButton)
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(resButton)
                 .addGap(37, 37, 37)
-                .addComponent(jButton2)
+                .addComponent(statusChange)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
 
@@ -86,6 +96,16 @@ public class Librarian extends javax.swing.JFrame {
         new Fines().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_finesButtonActionPerformed
+
+    private void resButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resButtonActionPerformed
+       new RoomReserve().setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_resButtonActionPerformed
+
+    private void statusChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusChangeActionPerformed
+        new ItemStatus().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_statusChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,8 +144,8 @@ public class Librarian extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton finesButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton resButton;
+    private javax.swing.JButton statusChange;
     // End of variables declaration//GEN-END:variables
 }

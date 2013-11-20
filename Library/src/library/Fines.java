@@ -40,8 +40,6 @@ public class Fines extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fines");
 
-        itemId.setText("Item ID");
-
         jLabel1.setText("ID of item to be returned:");
 
         submitButton.setText("Submit fine");
