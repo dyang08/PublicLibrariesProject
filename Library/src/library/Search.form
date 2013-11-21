@@ -43,7 +43,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="logButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="userLabel" min="-2" pref="53" max="-2" attributes="0"/>
                           </Group>
                           <Component id="submitButton" alignment="0" min="-2" max="-2" attributes="0"/>

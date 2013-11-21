@@ -1,14 +1,17 @@
-
 package library;
 
 import javax.swing.JFrame;
 import java.sql.*;
+
 /**
  * @author oscar
  */
 public class Search extends JFrame {
+
+    boolean logout = false;
     Login login;
     static String username;
+
     /**
      * Creates new form Search
      */
@@ -18,17 +21,18 @@ public class Search extends JFrame {
         this.username = username;
         changeLabels(username);
     }
-    
+
     /**
-     * Change userLabel and login to logout
-     * if username's size > 1
-     **/
-    private void changeLabels(String username){
-        if(username.length() > 1){
+     * Change userLabel and login to logout if username's size > 1
+     *
+     */
+    private void changeLabels(String username) {
+        if (username.length() > 1) {
             userLabel.setText(username);
             logButton.setText("logout");
-        }    
-    } 
+            logout = true;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +109,7 @@ public class Search extends JFrame {
                                 .addComponent(searchButton))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(logButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(36, 36, 36)
                                 .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(submitButton))
                         .addGap(0, 11, Short.MAX_VALUE)))
@@ -142,8 +146,15 @@ public class Search extends JFrame {
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
-        login.setVisible(true);
-        this.setVisible(false);
+        if (logout) {
+            logButton.setText("login");
+            userLabel.setText("");
+            username = "";
+            logout = false;
+        } else {
+            login.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_logButtonActionPerformed
 
     /**
@@ -172,13 +183,13 @@ public class Search extends JFrame {
             java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 String uname = "";
                 new Search(uname).setVisible(true);
-                
+
             }
         });
     }
