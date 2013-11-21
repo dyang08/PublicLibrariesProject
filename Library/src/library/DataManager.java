@@ -6,13 +6,15 @@
 
 package library;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author oscar
  */
-public class DataWriter {
+public class DataManager {
 
    String userid, password;
    String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
@@ -20,7 +22,7 @@ public class DataWriter {
    Connection con;
     
    
-    public DataWriter(String  userId, String password) {
+    public DataManager(String  userId, String password) {
         userid = userId;
         this.password = password;
     }
@@ -37,5 +39,24 @@ public class DataWriter {
         } catch (Exception e) {
             System.err.println(e);
         }
+    }
+    
+    /**
+     * returns result set for given sql parameter
+     * @param sql
+     * @return 
+     */
+    public ResultSet resultSet(String sql){
+        ResultSet rs = null;
+        PreparedStatement pst = null;
+       try {
+           pst = con.prepareStatement(sql);
+           rs = pst.executeQuery();
+           
+       } catch (SQLException ex) {
+           Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        return rs;
     }
 }

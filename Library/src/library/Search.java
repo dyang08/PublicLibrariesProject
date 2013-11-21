@@ -2,6 +2,7 @@ package library;
 
 import javax.swing.JFrame;
 import java.sql.*;
+import net.proteanit.sql.DbUtils;
 
 /**
  * @author oscar
@@ -10,7 +11,7 @@ public class Search extends JFrame {
 
     boolean logout = false;
     Login login;
-    static String username;
+    static String username, type;
 
     /**
      * Creates new form Search
@@ -19,6 +20,7 @@ public class Search extends JFrame {
         initComponents();
         login = new Login();
         this.username = username;
+        type = ""; 
         changeLabels(username);
     }
 
@@ -33,7 +35,26 @@ public class Search extends JFrame {
             logout = true;
         }
     }
-
+    
+    /**
+     * updates items in table
+     * given the criteria or what the user inputs
+     */
+    public void updateTable(String type,String title){
+        String sql = "";
+        if(type.equals("any") && title.isEmpty()){
+        sql = "select type, title, author, library_id_fk"
+                + "from items";
+        }
+        else{
+        sql = "select type, title, author, library_id_fk"
+                + "from items"
+                + "where type = " + type + " and title = "  + title;
+        }
+        ResultSet rs = new DataManager("S900691255", "1234").resultSet(username);
+        itemTable.setModel(DbUtils.resultSetToTableModel(rs));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +85,11 @@ public class Search extends JFrame {
         });
 
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "Books", "CDs", "DVDs" }));
         types.addActionListener(new java.awt.event.ActionListener() {
@@ -138,11 +164,11 @@ public class Search extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void typesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typesActionPerformed
-        // TODO add your handling code here:
+        type = types.getSelectedItem().toString();
     }//GEN-LAST:event_typesActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
@@ -156,6 +182,11 @@ public class Search extends JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_logButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        String search = searchBar.getText();
+        updateTable(type, search);
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
      * @param args the command line arguments

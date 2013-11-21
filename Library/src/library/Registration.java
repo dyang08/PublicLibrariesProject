@@ -202,7 +202,7 @@ public class Registration extends javax.swing.JFrame {
                     + "VALUES(" + "'customer', '" + username + "', '" + passwrdLabel.getText()
                     + "', '" + fName.getText() + "', '" + lName.getText() + "', " + (new Random().nextInt(3) + 1) + ")";
 
-            new DataWriter("S900691255", "1234").writeToDB(sql);
+            new DataManager("S900691255", "1234").writeToDB(sql);
 //go back to librarian window after changes have been made
             new Search(username).setVisible(true);
             this.setVisible(false);
