@@ -5,6 +5,8 @@
  */
 package library;
 
+import com.sun.xml.internal.bind.marshaller.DataWriter;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,6 +16,10 @@ import javax.swing.JOptionPane;
 public class Registration extends javax.swing.JFrame {
 
     String username;
+    static String userid = "S900691255", password = "oscar1909";
+    static String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
+    static Statement stmt;
+    static Connection con;
 
     /**
      * Creates new form Registration
@@ -191,8 +197,9 @@ public class Registration extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             //TODO insert room reservation in database
             username = userField.getText();
-            System.out.println(username);
-                  
+            String sql = "INSERT INTO USERS(USER_TYPE, USERNAME, PASSWRD, FIRST_NAME, LASTNAME, LIBRARY_ID_FK)"
+                    + "VALUES" + "(" + "'customer' ," + " '" + username + ")";
+            new DataWriter();
             //go back to librarian window after changes have been made
             new Search(username).setVisible(true);
             this.setVisible(false);
