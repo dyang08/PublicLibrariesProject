@@ -2,6 +2,10 @@ package library;
 
 import javax.swing.JFrame;
 import java.sql.*;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -20,12 +24,12 @@ public class Search extends JFrame {
         initComponents();
         login = new Login();
         this.username = username;
-        type = ""; 
+        type = "";
         changeLabels(username);
     }
 
     /**
-     * Change userLabel and login to logout if username's size > 1
+     * Change userLabel and login to logout if user name's size > 1
      *
      */
     private void changeLabels(String username) {
@@ -35,26 +39,27 @@ public class Search extends JFrame {
             logout = true;
         }
     }
-    
+
     /**
-     * updates items in table
-     * given the criteria or what the user inputs
+     * updates items in table given the criteria or what the user inputs
+     *
      */
-    public void updateTable(String type,String title){
-        String sql = "";
-        if(type.equals("any") && title.isEmpty()){
-        sql = "select type, title, author, library_id_fk"
-                + "from items";
+    public void updateTable(String type, String title) {
+
+        String sql = "SELECT type, title, author, library_id_fk"
+                + "\nFROM items";
+        //    + "\nWHERE title LIKE '%" + title + "%'";
+        System.out.println("sql: " + sql);
+        try {
+            ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
+            while (rs.next()){
+                itemTable.setModel(DbUtils.resultSetToTableModel(rs));              
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else{
-        sql = "select type, title, author, library_id_fk"
-                + "from items"
-                + "where type = " + type + " and title = "  + title;
-        }
-        ResultSet rs = new DataManager("S900691255", "1234").resultSet(username);
-        itemTable.setModel(DbUtils.resultSetToTableModel(rs));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,7 +173,7 @@ public class Search extends JFrame {
     }//GEN-LAST:event_typesActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-        
+
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
