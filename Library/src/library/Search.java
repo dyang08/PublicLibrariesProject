@@ -43,7 +43,7 @@ public class Search extends JFrame {
 
     /**
      * updates items in table given the criteria or what the user inputs
-     *
+     * need to add checkboxes
      * @param type
      * @param title
      */
