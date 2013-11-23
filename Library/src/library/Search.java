@@ -50,17 +50,17 @@ public class Search extends JFrame {
     public void updateTable(String type, String title) {
 
         String sql = "SELECT type, title, author, library"
-                + " FROM items LEFT JOIN libraries"
-                + " ON libraries.library_id = items.library_id";
-               // + " ON title LIKE '" + title + "'";
+                + " FROM items, libraries"
+                + " where libraries.library_id = items.library_id"
+                + " AND lower(title) LIKE lower('%" + title + "%')";
         System.out.println("sql: " + sql);
         try {
             ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
-         //   rs.first();
+            itemTable.setModel(DbUtils.resultSetToTableModel(rs));
             while (rs.next()){
                 
                 itemTable.setModel(DbUtils.resultSetToTableModel(rs));   
-            }
+            }       
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
