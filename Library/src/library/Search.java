@@ -102,7 +102,7 @@ public class Search extends JFrame {
             }
         });
 
-        types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "Books", "CDs", "DVDs" }));
+        types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "book", "CD", "DVD" }));
         types.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typesActionPerformed(evt);
