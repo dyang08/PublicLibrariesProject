@@ -34,7 +34,8 @@ public class DataManager {
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             System.out.println("Data was written successfuly");
-
+            stmt.closeOnCompletion();
+            con.close();
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -53,7 +54,7 @@ public class DataManager {
             System.out.println("Connected database successfully...");
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
-            System.out.println("excecuted query");  
+            System.out.println("excecuted query");
             return rs;
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,14 +62,14 @@ public class DataManager {
 
         return rs;
     }
-    
-    public Connection connect(){
+
+    public Connection connect() {
         try {
             con = DriverManager.getConnection(url, userid, password);
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-            System.out.println("Connected database successfully...");
+        System.out.println("Connected database successfully...");
         return con;
     }
 }

@@ -2,10 +2,10 @@ package library;
 
 import javax.swing.JFrame;
 import java.sql.*;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -15,10 +15,11 @@ public class Search extends JFrame {
 
     boolean logout = false;
     Login login;
-    static String username, type;
+    String username, type;
 
     /**
      * Creates new form Search
+     * @param username
      */
     public Search(String username) {
         initComponents();
@@ -43,17 +44,22 @@ public class Search extends JFrame {
     /**
      * updates items in table given the criteria or what the user inputs
      *
+     * @param type
+     * @param title
      */
     public void updateTable(String type, String title) {
 
-        String sql = "SELECT type, title, author, library_id_fk"
-                + "\nFROM items";
-        //    + "\nWHERE title LIKE '%" + title + "%'";
+        String sql = "SELECT type, title, author, library"
+                + " FROM items LEFT JOIN libraries"
+                + " ON libraries.library_id = items.library_id";
+               // + " ON title LIKE '" + title + "'";
         System.out.println("sql: " + sql);
         try {
             ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
+         //   rs.first();
             while (rs.next()){
-                itemTable.setModel(DbUtils.resultSetToTableModel(rs));              
+                
+                itemTable.setModel(DbUtils.resultSetToTableModel(rs));   
             }
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
@@ -209,19 +215,14 @@ public class Search extends JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Search.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 String uname = "";
                 new Search(uname).setVisible(true);
