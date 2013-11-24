@@ -6,11 +6,9 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import net.proteanit.sql.DbUtils;
 
 /**
- * @author oscar
+ * @author Oscar Menendez
  */
 public class Search extends JFrame {
 
@@ -241,8 +239,7 @@ public class Search extends JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String uname = "";
-                new Search(uname).setVisible(true);
+                new Search("").setVisible(true);
 
             }
         });
