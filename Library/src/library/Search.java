@@ -2,6 +2,7 @@ package library;
 
 import javax.swing.JFrame;
 import java.sql.*;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,7 @@ public class Search extends JFrame {
 
     /**
      * Creates new form Search
+     *
      * @param username
      */
     public Search(String username) {
@@ -42,28 +44,43 @@ public class Search extends JFrame {
     }
 
     /**
-     * updates items in table given the criteria or what the user inputs
-     * need to add checkboxes
+     * updates items in table given the criteria or what the user inputs need to
+     * add checkboxes
+     *
      * @param type
      * @param title
      */
     public void updateTable(String type, String title) {
-
         String sql = "SELECT type, title, author, library"
                 + " FROM items, libraries"
                 + " where libraries.library_id = items.library_id"
                 + " AND lower(title) LIKE lower('%" + title + "%')";
         System.out.println("sql: " + sql);
+
+        ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
-            ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
-            itemTable.setModel(DbUtils.resultSetToTableModel(rs));
-            while (rs.next()){
-                
-                itemTable.setModel(DbUtils.resultSetToTableModel(rs));   
-            }       
+            ResultSetMetaData md = rs.getMetaData();
+            int columnCount = md.getColumnCount();
+            Vector columns = new Vector(columnCount);
+            //store column names  
+            for (int i = 1; i <= columnCount; i++) {
+                columns.add(md.getColumnName(i));
+            }
+            Vector data = new Vector();
+            Vector row;
+            while (rs.next()) {
+                row = new Vector(columnCount);
+                for (int i = 1; i <= columnCount; i++) {
+                    row.add(rs.getString(i));      
+                }
+                data.add(row);
+            }
+            itemTable.setModel(new DefaultTableModel(data, columns));
+            //Debugging  
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     /**
