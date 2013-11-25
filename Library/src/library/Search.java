@@ -1,15 +1,12 @@
 package library;
 
-import java.awt.Checkbox;
-import java.awt.Component;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  * @author Oscar Menendez
@@ -59,40 +56,30 @@ public class Search extends JFrame {
                 + " AND lower(title) LIKE lower('%" + title + "%')";
         System.out.println("sql: " + sql);
 
+        MyTableModel dtm = null;
         ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
-            boolean test = true;
-            int index = 0;
-            while (rs.next()) {
-                for(int i = 1; i <= itemTable.getColumnCount(); i++) {
-                if(i < 5)
-                itemTable.getModel().setValueAt(rs.getString(i), index, i-1);
-                else
-                   itemTable.getModel().setValueAt(test, index, i-1);
-                }
-                index++;
-            }
+            Vector columnName = new Vector();
+            Vector data = new Vector();
             
-            itemTable.getColumnModel().getColumn(4).setCellRenderer(
-				new TableCellRenderer() {
-                            // the method gives the component  like whome the cell must be rendered
-                            @Override
-                            public Component getTableCellRendererComponent(
-							JTable table, Object value, boolean isSelected,
-							boolean isFocused, int row, int col) {
-						boolean marked = (Boolean) value;
-						JCheckBox rendererComponent = new JCheckBox();
-						if (marked) {
-							rendererComponent.setSelected(true);
-						}
-						return rendererComponent;
-					}
-				});
-            //Debugging  
+            for (int i = 0; i < itemTable.getColumnCount(); i++){
+                columnName.add(itemTable.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector row = new Vector();
+                for (int i = 1; i < 5; i++) {
+                    row.add(rs.getString(i));
+                }
+                    row.add("available");
+                    row.add(false);
+                    data.add(row);
+            }
+            dtm = new MyTableModel(data, columnName);
+            itemTable.setModel(dtm);
+            itemTable.setRowSelectionAllowed(true);
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -147,29 +134,28 @@ public class Search extends JFrame {
 
         itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Type", "Title", "Author/Artist", "Location", "Status"
+                "Type", "Title", "Author/Artist", "Location", "Status", "Reserve"
             }
-        ));
-        itemTable.setColumnSelectionAllowed(true);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(itemTable);
-        itemTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         submitButton.setText("Submit");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,9 +185,9 @@ public class Search extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logButton)
-                    .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(types, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,6 +227,11 @@ public class Search extends JFrame {
         String search = searchBar.getText();
         updateTable(type, search);
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        //testing
+        System.out.println("it actually changes " + itemTable.getValueAt(1, 5));
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,3 +275,24 @@ public class Search extends JFrame {
     private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 }
+//override of table model
+class MyTableModel extends DefaultTableModel {  
+  
+    public MyTableModel(Vector data, Vector columnNames) {  
+         super(data, columnNames);  
+      }  
+     
+    @Override  
+      public Class getColumnClass(int col) {  
+        if (col == 5)       //second column accepts only Integer values  
+            return Boolean.class;  
+        else return String.class;  //other columns accept String values  
+    }  
+  
+    @Override  
+      public boolean isCellEditable(int row, int col) {  
+        if (col == 5)       //first column will be uneditable  
+            return true;  
+        else return false;  
+      }
+    }    
