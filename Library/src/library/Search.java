@@ -1,11 +1,15 @@
 package library;
 
+import java.awt.Checkbox;
+import java.awt.Component;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  * @author Oscar Menendez
@@ -57,23 +61,33 @@ public class Search extends JFrame {
 
         ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
-            ResultSetMetaData md = rs.getMetaData();
-            int columnCount = md.getColumnCount();
-            Vector columns = new Vector(columnCount);
-            //store column names  
-            for (int i = 1; i <= columnCount; i++) {
-                columns.add(md.getColumnName(i));
-            }
-            Vector data = new Vector();
-            Vector row;
+            boolean test = true;
+            int index = 0;
             while (rs.next()) {
-                row = new Vector(columnCount);
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(rs.getString(i));      
+                for(int i = 1; i <= itemTable.getColumnCount(); i++) {
+                if(i < 5)
+                itemTable.getModel().setValueAt(rs.getString(i), index, i-1);
+                else
+                   itemTable.getModel().setValueAt(test, index, i-1);
                 }
-                data.add(row);
+                index++;
             }
-            itemTable.setModel(new DefaultTableModel(data, columns));
+            
+            itemTable.getColumnModel().getColumn(4).setCellRenderer(
+				new TableCellRenderer() {
+                            // the method gives the component  like whome the cell must be rendered
+                            @Override
+                            public Component getTableCellRendererComponent(
+							JTable table, Object value, boolean isSelected,
+							boolean isFocused, int row, int col) {
+						boolean marked = (Boolean) value;
+						JCheckBox rendererComponent = new JCheckBox();
+						if (marked) {
+							rendererComponent.setSelected(true);
+						}
+						return rendererComponent;
+					}
+				});
             //Debugging  
         } catch (SQLException ex) {
             Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,13 +147,27 @@ public class Search extends JFrame {
 
         itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Type", "Item", "Copy #", "Status", "Location", "reserve"
+                "Type", "Title", "Author/Artist", "Location", "Status"
             }
         ));
+        itemTable.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(itemTable);
+        itemTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         submitButton.setText("Submit");
 
@@ -161,7 +189,7 @@ public class Search extends JFrame {
                                 .addComponent(searchButton))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(logButton)
-                                .addGap(36, 36, 36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(submitButton))
                         .addGap(0, 11, Short.MAX_VALUE)))
@@ -179,9 +207,9 @@ public class Search extends JFrame {
                     .addComponent(types, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(submitButton)
                 .addContainerGap())
         );
