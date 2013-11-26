@@ -7,13 +7,11 @@ package library;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.Reader;
 import java.sql.*;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.TableModel;
+
 
 /**
  *
