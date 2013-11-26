@@ -5,7 +5,12 @@
  */
 package library;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
 import java.sql.*;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableModel;
@@ -34,7 +39,7 @@ public class DataManager {
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             System.out.println("Data was written successfuly");
-            stmt.closeOnCompletion();
+         //   stmt.closeOnCompletion();
             con.close();
         } catch (Exception e) {
             System.err.println(e);
@@ -71,5 +76,32 @@ public class DataManager {
         }
         System.out.println("Connected database successfully...");
         return con;
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            try (BufferedReader reader = new BufferedReader(new FileReader("ISBNDb.txt"))) {
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    String[] data = line.split("=");
+//                String sqlOne = "INSERT INTO S900750662.ITEMS(item_id, type, item_status, library_id_fk) "
+//                        + "VALUES(" + data[0] + ", 1, " + (new Random().nextInt(5) + 1) + ", "
+//                        + (new Random().nextInt(4) + 1) + ")";
+//
+                    String id = data[0];
+                    String sqlTwo = "INSERT INTO S900750662.BOOK (book_id, isbn, author, publication_year, edition, title, items_item_id) "
+                            + "VALUES (" + id + ", '" + data[2] + "', '" + data[3] + "', " + data[1]
+                            + ", " + (new Random().nextInt(4) + 1) + ", '" + data[4] + "', " + id + ")";
+                    
+                    // new DataManager("S900691255", "1234").writeToDB(sqlOne);
+                    new DataManager("S900691255", "1234").writeToDB(sqlTwo);
+                    // takes an average of 5 minutes per thousand rows
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("error reading");
+        }
+
     }
 }

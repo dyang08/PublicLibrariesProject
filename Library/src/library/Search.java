@@ -6,13 +6,12 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 /**
  * @author Oscar Menendez
  */
 public class Search extends JFrame {
-
+    
     boolean logout = false;
     Login login;
     String username, type;
@@ -55,14 +54,14 @@ public class Search extends JFrame {
                 + " where libraries.library_id = items.library_id"
                 + " AND lower(title) LIKE lower('%" + title + "%')";
         System.out.println("sql: " + sql);
-
+        
         MyTableModel dtm = null;
         ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
             Vector columnName = new Vector();
             Vector data = new Vector();
             
-            for (int i = 0; i < itemTable.getColumnCount(); i++){
+            for (int i = 0; i < itemTable.getColumnCount(); i++) {
                 columnName.add(itemTable.getColumnName(i));
             }
             while (rs.next()) {
@@ -70,9 +69,9 @@ public class Search extends JFrame {
                 for (int i = 1; i < 5; i++) {
                     row.add(rs.getString(i));
                 }
-                    row.add("available");
-                    row.add(false);
-                    data.add(row);
+                row.add("available");
+                row.add(false);
+                data.add(row);
             }
             dtm = new MyTableModel(data, columnName);
             itemTable.setModel(dtm);
@@ -259,7 +258,7 @@ public class Search extends JFrame {
             @Override
             public void run() {
                 new Search("").setVisible(true);
-
+                
             }
         });
     }
@@ -276,23 +275,30 @@ public class Search extends JFrame {
     // End of variables declaration//GEN-END:variables
 }
 //override of table model
-class MyTableModel extends DefaultTableModel {  
-  
-    public MyTableModel(Vector data, Vector columnNames) {  
-         super(data, columnNames);  
-      }  
-     
-    @Override  
-      public Class getColumnClass(int col) {  
-        if (col == 5)       //second column accepts only Integer values  
-            return Boolean.class;  
-        else return String.class;  //other columns accept String values  
-    }  
-  
-    @Override  
-      public boolean isCellEditable(int row, int col) {  
-        if (col == 5)       //first column will be uneditable  
-            return true;  
-        else return false;  
-      }
+
+class MyTableModel extends DefaultTableModel {    
+    
+    public MyTableModel(Vector data, Vector columnNames) {        
+        super(data, columnNames);        
     }    
+    
+    @Override    
+    public Class getColumnClass(int col) {        
+        if (col == 5) //second column accepts only Integer values  
+        {
+            return Boolean.class;
+        } else {
+            return String.class;  //other columns accept String values  
+        }
+    }    
+    
+    @Override    
+    public boolean isCellEditable(int row, int col) {        
+        if (col == 5) //first column will be uneditable  
+        {
+            return true;
+        } else {
+            return false;
+        }        
+    }
+}
