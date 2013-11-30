@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Oscar Menendez
  */
 public class Search extends JFrame {
-    
+
     boolean logout = false;
     Login login;
     String username, type;
@@ -49,28 +49,54 @@ public class Search extends JFrame {
      * @param title
      */
     public void updateTable(String type, String title) {
-        String sql = "SELECT type, title, author, library"
-                + " FROM items, libraries"
-                + " where libraries.library_id = items.library_id"
-                + " AND lower(title) LIKE lower('%" + title + "%')";
-        System.out.println("sql: " + sql);
-        
+        String book = "S900750662.book";
+        String items = "S900750662.items";
+        String lib = "S900750662.libraries";
+        String iStatus = "S900750662.items_status_lk";
+        String sql = "";
+        if (type.equals("book")) {
+            sql = "SELECT type, title, author, name, item_status"
+                    + " FROM " + book + ", " + items + ", " + lib + ", " + iStatus
+                    + " where item_status_id = item_status_fk and item_id = item_id_fk and library_id_fk = library_id"
+                    + " AND lower(title) LIKE lower('%" + title + "%')";
+            System.out.println("sql: " + sql);
+        }
         MyTableModel dtm = null;
         ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
             Vector columnName = new Vector();
             Vector data = new Vector();
-            
+
             for (int i = 0; i < itemTable.getColumnCount(); i++) {
                 columnName.add(itemTable.getColumnName(i));
             }
             while (rs.next()) {
+                String status = " ";
                 Vector row = new Vector();
-                for (int i = 1; i < 5; i++) {
-                    row.add(rs.getString(i));
+                for (int i = 1; i < 6; i++) {
+                    if (i == 1) {
+                        String itemType = rs.getString(i);
+                        switch (itemType) {
+                            case "2":
+                                row.add("CD");
+                                break;
+                            case "3":
+                                row.add("DVD");
+                                break;
+                            default:
+                                row.add("book");
+                                break;
+                        }
+                    } else if (i == 5) {
+                        status = rs.getString(i);
+                        row.add(status);
+                    } else {
+                        row.add(rs.getString(i));
+                    }
                 }
-                row.add("available");
-                row.add(false);
+                if (status.equals("available")) {
+                    row.add(false);
+                }
                 data.add(row);
             }
             dtm = new MyTableModel(data, columnName);
@@ -258,7 +284,7 @@ public class Search extends JFrame {
             @Override
             public void run() {
                 new Search("").setVisible(true);
-                
+
             }
         });
     }
@@ -276,29 +302,33 @@ public class Search extends JFrame {
 }
 //override of table model
 
-class MyTableModel extends DefaultTableModel {    
-    
-    public MyTableModel(Vector data, Vector columnNames) {        
-        super(data, columnNames);        
-    }    
-    
-    @Override    
-    public Class getColumnClass(int col) {        
+class MyTableModel extends DefaultTableModel {
+
+    public MyTableModel(Vector data, Vector columnNames) {
+        super(data, columnNames);
+    }
+
+    @Override
+    public Class getColumnClass(int col) {
         if (col == 5) //second column accepts only Integer values  
         {
             return Boolean.class;
         } else {
             return String.class;  //other columns accept String values  
         }
-    }    
-    
-    @Override    
-    public boolean isCellEditable(int row, int col) {        
+    }
+
+    @Override
+    public boolean isCellEditable(int row, int col) {
         if (col == 5) //first column will be uneditable  
         {
-            return true;
+            if (getValueAt(row, col - 1).equals("available")) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
-        }        
+        }
     }
 }
