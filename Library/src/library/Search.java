@@ -1,5 +1,6 @@
 package library;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.Vector;
@@ -14,7 +15,8 @@ public class Search extends JFrame {
 
     boolean logout = false;
     Login login;
-    String username, type;
+    String username, type, criteria;
+    int colCount = 0;
 
     /**
      * Creates new form Search
@@ -26,6 +28,7 @@ public class Search extends JFrame {
         login = new Login();
         this.username = username;
         type = "";
+        criteria = "";
         changeLabels(username);
     }
 
@@ -48,33 +51,69 @@ public class Search extends JFrame {
      * @param type
      * @param title
      */
-    public void updateTable(String type, String title) {
-        String book = "S900750662.book";
+    public void updateTable(String type, String criteria, String search) {
         String items = "S900750662.items";
         String lib = "S900750662.libraries";
         String iStatus = "S900750662.items_status_lk";
         String sql = "";
-        if (type.equals("book")) {
-            sql = "SELECT type, title, author, name, item_status"
-                    + " FROM " + book + ", " + items + ", " + lib + ", " + iStatus
+        Vector columnName = new Vector();
+
+        if (type.equals("CD")) {
+            sql = "SELECT item_id, type, album, artist, location, status"
+                    + " FROM S900750662.cds" + ", " + items + ", " + lib + ", " + iStatus
                     + " where item_status_id = item_status_fk and item_id = item_id_fk and library_id_fk = library_id"
-                    + " AND lower(title) LIKE lower('%" + title + "%')";
+                    + " AND lower(" + criteria + ") LIKE lower('%" + search + "%')";
             System.out.println("sql: " + sql);
+            columnName.add("item_id");
+            columnName.add("type");
+            columnName.add("album");
+            columnName.add("artist");
+            columnName.add("location");
+            columnName.add("status");
+            columnName.add("reserve");
+            colCount = 7;
+        } else if (type.equals("DVD")) {
+            sql = "SELECT item_id, type, title, director, location, status"
+                    + " FROM S900750662.dvd" + ", " + items + ", " + lib + ", " + iStatus
+                    + " where item_status_id = item_status_fk and item_id = item_id_fk and library_id_fk = library_id"
+                    + " AND lower(" + criteria + ") LIKE lower('%" + search + "%')";
+            System.out.println("sql: " + sql);
+            columnName.add("item_id");
+            columnName.add("type");
+            columnName.add("title");
+            columnName.add("director");
+            columnName.add("location");
+            columnName.add("status");
+            columnName.add("reserve");
+            colCount = 7;
+
+        } else {
+            sql = "SELECT item_id, type, isbn, title, author, location, status"
+                    + " FROM S900750662.book," + items + ", " + lib + ", " + iStatus
+                    + " where item_status_id = item_status_fk and item_id = item_id_fk and library_id_fk = library_id"
+                    + " AND lower(" + criteria + ") LIKE lower('%" + search + "%')";
+            System.out.println("sql: " + sql);
+            columnName.add("item_id");
+            columnName.add("type");
+            columnName.add("isbn");
+            columnName.add("title");
+            columnName.add("author");
+            columnName.add("location");
+            columnName.add("status");
+            columnName.add("reserve");
+            colCount = 8;
+            System.out.println("count = " + colCount);
         }
         MyTableModel dtm = null;
         ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
         try {
-            Vector columnName = new Vector();
             Vector data = new Vector();
 
-            for (int i = 0; i < itemTable.getColumnCount(); i++) {
-                columnName.add(itemTable.getColumnName(i));
-            }
             while (rs.next()) {
                 String status = " ";
                 Vector row = new Vector();
-                for (int i = 1; i < 6; i++) {
-                    if (i == 1) {
+                for (int i = 1; i < colCount; i++) {
+                    if (i == 2) {
                         String itemType = rs.getString(i);
                         switch (itemType) {
                             case "2":
@@ -87,7 +126,7 @@ public class Search extends JFrame {
                                 row.add("book");
                                 break;
                         }
-                    } else if (i == 5) {
+                    } else if (i == (colCount - 1)) {
                         status = rs.getString(i);
                         row.add(status);
                     } else {
@@ -99,7 +138,7 @@ public class Search extends JFrame {
                 }
                 data.add(row);
             }
-            dtm = new MyTableModel(data, columnName);
+            dtm = new MyTableModel(data, columnName, colCount);
             itemTable.setModel(dtm);
             itemTable.setRowSelectionAllowed(true);
         } catch (SQLException ex) {
@@ -124,7 +163,7 @@ public class Search extends JFrame {
         itemTable = new javax.swing.JTable();
         submitButton = new javax.swing.JButton();
         userLabel = new javax.swing.JLabel();
-        criteria = new javax.swing.JComboBox();
+        criteriaBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Search window");
@@ -150,8 +189,13 @@ public class Search extends JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
+        searchButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchButtonKeyPressed(evt);
+            }
+        });
 
-        types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "any", "book", "CD", "DVD" }));
+        types.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "book", "CD", "DVD" }));
         types.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typesActionPerformed(evt);
@@ -190,10 +234,10 @@ public class Search extends JFrame {
             }
         });
 
-        criteria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "title", "author", "isbn", "location" }));
-        criteria.addActionListener(new java.awt.event.ActionListener() {
+        criteriaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "title", "author", "isbn", "location" }));
+        criteriaBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                criteriaActionPerformed(evt);
+                criteriaBoxActionPerformed(evt);
             }
         });
 
@@ -218,7 +262,7 @@ public class Search extends JFrame {
                                 .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(criteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(criteriaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,7 +281,7 @@ public class Search extends JFrame {
                     .addComponent(types, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton)
-                    .addComponent(criteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(criteriaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -250,6 +294,26 @@ public class Search extends JFrame {
 
     private void typesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typesActionPerformed
         type = types.getSelectedItem().toString();
+        if (type.equals("CD")) {
+            //change values of criteria to represent the CD type
+            criteriaBox.removeAllItems();
+            criteriaBox.addItem("album");
+            criteriaBox.addItem("artist");
+            criteriaBox.addItem("year");
+
+        } else if (type.equals("DVD")) {
+            criteriaBox.removeAllItems();
+            criteriaBox.addItem("title");
+            criteriaBox.addItem("director");
+            criteriaBox.addItem("year");
+
+        } else if (type.equals("book")) {
+            criteriaBox.removeAllItems();
+            criteriaBox.addItem("title");
+            criteriaBox.addItem("isbn");
+            criteriaBox.addItem("author");
+            criteriaBox.addItem("year");
+        }
     }//GEN-LAST:event_typesActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
@@ -269,8 +333,10 @@ public class Search extends JFrame {
     }//GEN-LAST:event_logButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        criteria = criteriaBox.getSelectedItem().toString();
+        System.out.println("criteria " + criteria);
         String search = searchBar.getText();
-        updateTable(type, search);
+        updateTable(type, criteria, search);
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
@@ -282,14 +348,18 @@ public class Search extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBarAncestorResized
 
-    private void criteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criteriaActionPerformed
-        if(types.getSelectedItem().equals("CD")){
-            //change values of criteria to represent the CD type
-        }
-        else if(types.getSelectedItem().equals("DVD")){
-            //change values of criteria to represent the DVD type
-        }
-    }//GEN-LAST:event_criteriaActionPerformed
+    private void criteriaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criteriaBoxActionPerformed
+
+    }//GEN-LAST:event_criteriaBoxActionPerformed
+
+    private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
+     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    criteria = criteriaBox.getSelectedItem().toString();
+                    System.out.println("criteria " + criteria);
+                    String search = searchBar.getText();
+                    updateTable(type, criteria, search);
+                }        // TODO add your handling code here:
+    }//GEN-LAST:event_searchButtonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -317,13 +387,12 @@ public class Search extends JFrame {
             @Override
             public void run() {
                 new Search("").setVisible(true);
-
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox criteria;
+    private javax.swing.JComboBox criteriaBox;
     private javax.swing.JTable itemTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logButton;
@@ -338,13 +407,16 @@ public class Search extends JFrame {
 
 class MyTableModel extends DefaultTableModel {
 
-    public MyTableModel(Vector data, Vector columnNames) {
+    int colCount;
+
+    public MyTableModel(Vector data, Vector columnNames, int columnCount) {
         super(data, columnNames);
+        colCount = columnCount;
     }
 
     @Override
     public Class getColumnClass(int col) {
-        if (col == 5) //second column accepts only Integer values  
+        if (col == colCount - 1) //second column accepts only Integer values  
         {
             return Boolean.class;
         } else {
@@ -354,7 +426,7 @@ class MyTableModel extends DefaultTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        if (col == 5) //first column will be uneditable  
+        if (col == colCount - 1) //first column will be uneditable  
         {
             if (getValueAt(row, col - 1).equals("available")) {
                 return true;
