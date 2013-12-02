@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Search extends JFrame {
 
-    boolean logout = false;
+    boolean logout;
     Login login;
     String username, type, criteria;
     int colCount = 0;
@@ -26,6 +26,7 @@ public class Search extends JFrame {
     public Search(String username) {
         initComponents();
         login = new Login();
+        logout = false;
         this.username = username;
         type = "";
         criteria = "";
