@@ -152,11 +152,16 @@ public class Registration extends javax.swing.JFrame {
             //TODO insert room reservation in database
             username = userField.getText();
 
-            String sql = "INSERT INTO S900750662.lib_users(TYPE, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME)"
+            String sqlOne = "INSERT INTO S900750662.lib_users(TYPE, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME)"
                     + "VALUES(" + "2, '" + username + "', '" + passwrdLabel.getText()
                     + "', '" + fName.getText() + "', '" + lName.getText() + "')";
 
-            new DataManager("S900691255", "1234").writeToDB(sql);
+//            String sqlTwo = "insert into S900750662.customer(status)\n"
+//                    + "values('active')";
+
+            new DataManager("S900691255", "1234").writeToDB(sqlOne);
+           // new DataManager("S900691255", "1234").writeToDB(sqlTwo);
+            
 //go back to librarian window after changes have been made
             new Search(username).setVisible(true);
             this.setVisible(false);

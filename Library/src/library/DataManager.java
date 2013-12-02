@@ -36,8 +36,8 @@ public class DataManager {
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             System.out.println("Data was written successfuly");
-            //   stmt.closeOnCompletion();
-            con.close();
+           //stmt.closeOnCompletion();
+           // con.close();
         } catch (Exception e) {
             System.err.println(e);
         }
