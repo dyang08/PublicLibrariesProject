@@ -11,7 +11,7 @@ package library;
  * @author oscar
  */
 public class Librarian extends javax.swing.JFrame {
-
+    private static String user;
     /**
      * Creates new form Librarian
      */
@@ -32,6 +32,7 @@ public class Librarian extends javax.swing.JFrame {
         resButton = new javax.swing.JButton();
         statusChange = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        loginMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Librarian window");
@@ -71,7 +72,9 @@ public class Librarian extends javax.swing.JFrame {
                     .addComponent(finesButton))
                 .addContainerGap(410, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(loginMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -79,7 +82,9 @@ public class Librarian extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(loginMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addComponent(finesButton)
                 .addGap(39, 39, 39)
@@ -145,6 +150,7 @@ public class Librarian extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton finesButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel loginMsg;
     private javax.swing.JButton resButton;
     private javax.swing.JButton statusChange;
     // End of variables declaration//GEN-END:variables

@@ -1,22 +1,36 @@
 package library;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author oscar
  */
 public class Login extends javax.swing.JFrame {
 
+    String userN, passwrd;
+    String name;
+    int userID;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        userN = "";
+        passwrd = "";
+        name = "";
+        userID = 0;
+        
     }
 
     /**
@@ -39,13 +53,13 @@ public class Login extends javax.swing.JFrame {
         setName("loginFrame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        username.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Username:");
+
+        password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
+                passwordActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Username:");
 
         jLabel2.setText("Password:");
 
@@ -111,18 +125,44 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
-
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // TODO add your handling code here:
+        String un = username.getText();
+        String pw = password.getText();
+        String sql = "SELECT user_id, type, first_name, username "
+                + "FROM S900750662.lib_users "
+                + "WHERE username = '" + un + "' and " + "password = '" + pw + "'";
+        ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
+        int type = 0;
+        try {
+            while (rs.next()) {
+                userID = rs.getInt("user_id");
+                type = rs.getInt("type");
+                name = rs.getString("first_name");
+                userN = rs.getString("username"); 
+                if(type == 1){
+                    new Librarian().setVisible(true);
+                    this.setVisible(false);
+                }
+                else{
+                    new Search(userN).setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex);
+            JOptionPane.showConfirmDialog(this, "Pair not found", "warning", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void regButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regButtonActionPerformed
         new Registration().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_regButtonActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +194,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               Login log = new Login();
+                Login log = new Login();
                 log.setVisible(true);
                 log.setTitle("Login window");
             }
