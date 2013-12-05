@@ -19,38 +19,40 @@ import javax.swing.JOptionPane;
  */
 public class DataManager {
 
-    String userid, password;
-    String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
-    Statement stmt;
-    Connection con;
+    private String userid, password;
+    private String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
+    private Statement stmt;
+    private Connection con;
+    private boolean error;
 
     public DataManager(String userId, String password) {
         userid = userId;
         this.password = password;
+        error = false;
     }
 
     /**
      * executes given sql string
-     * @param sql to be executed
-     * @return  true if an exception is thrown
      */
-    public boolean writeToDB(String sql) {
-        boolean error = false;
+    public void writeToDB(String sql) {
         try {
             con = DriverManager.getConnection(url, userid, password);
             System.out.println("Connected database successfully...");
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
             System.out.println("Data was written successfuly");
-           //stmt.closeOnCompletion();
+            //stmt.closeOnCompletion();
             // con.close();
         } catch (Exception e) {
-            error = true;
             System.err.println(e);
             if (e instanceof SQLIntegrityConstraintViolationException) {
-                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.ERROR_MESSAGE);
+                error = true;
+                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.WARNING_MESSAGE);
             }
         }
+    }
+
+    public boolean getErrorState() {
         return error;
     }
 

@@ -158,10 +158,10 @@ public class Registration extends javax.swing.JFrame {
                     + "', '" + fName.getText() + "', '" + lName.getText() + "')";
             
             
-            boolean error = dm.writeToDB(sqlOne);
+            dm.writeToDB(sqlOne);
 
             //go back to librarian window after changes have been made
-            if (!error) {
+            if (!dm.getErrorState()) {
                 new Search(username).setVisible(true);
                 this.setVisible(false);
             }
