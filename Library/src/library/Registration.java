@@ -156,21 +156,21 @@ public class Registration extends javax.swing.JFrame {
                     + "VALUES(" + "2, '" + username + "', '" + passwrdLabel.getText()
                     + "', '" + fName.getText() + "', '" + lName.getText() + "')";
             
-            
+            System.out.println("ok it s changing");
             dm.writeToDB(sqlOne);
 
             //go back to librarian window after changes have been made
-            if (dm.getErrorState()) {
+            if (!dm.getErrorState()) {
                 System.out.println("error state" + dm.getErrorState());
-//                new Search(username).setVisible(true);
-//                this.setVisible(false);
+                new Search(username).setVisible(true);
+                this.setVisible(false);
             }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-//        new Login().setVisible(true);
-//        this.setVisible(false);
+        new Login().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void passwrdLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwrdLabelActionPerformed

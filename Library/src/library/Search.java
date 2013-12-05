@@ -1,6 +1,7 @@
 package library;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import java.sql.*;
 import java.util.Vector;
@@ -171,28 +172,10 @@ public class Search extends JFrame {
         setName("searchFrame"); // NOI18N
         setPreferredSize(new java.awt.Dimension(600, 400));
 
-        searchBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBarActionPerformed(evt);
-            }
-        });
-        searchBar.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
-            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
-            }
-            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
-                searchBarAncestorResized(evt);
-            }
-        });
-
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
-            }
-        });
-        searchButton.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchButtonKeyPressed(evt);
             }
         });
 
@@ -236,11 +219,6 @@ public class Search extends JFrame {
         });
 
         criteriaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "title", "author", "isbn", "location" }));
-        criteriaBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                criteriaBoxActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -318,10 +296,6 @@ public class Search extends JFrame {
         }
     }//GEN-LAST:event_typesActionPerformed
 
-    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-
-    }//GEN-LAST:event_searchBarActionPerformed
-
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
         if (logout) {
             logButton.setText("login");
@@ -343,26 +317,9 @@ public class Search extends JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         //testing
-        System.out.println("it actually changes " + itemTable.getValueAt(1, 5));
-        
+
+
     }//GEN-LAST:event_submitButtonActionPerformed
-
-    private void searchBarAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_searchBarAncestorResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchBarAncestorResized
-
-    private void criteriaBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criteriaBoxActionPerformed
-
-    }//GEN-LAST:event_criteriaBoxActionPerformed
-
-    private void searchButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchButtonKeyPressed
-     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    criteria = criteriaBox.getSelectedItem().toString();
-                    System.out.println("criteria " + criteria);
-                    String search = searchBar.getText();
-                    updateTable(type, criteria, search);
-                }        // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -405,6 +362,7 @@ public class Search extends JFrame {
     private javax.swing.JComboBox types;
     private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
+
 }
 //override of table model
 
