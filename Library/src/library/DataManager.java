@@ -45,9 +45,10 @@ public class DataManager {
             // con.close();
         } catch (Exception e) {
             System.err.println(e);
+            error = true;
             if (e instanceof SQLIntegrityConstraintViolationException) {
                 error = true;
-                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
