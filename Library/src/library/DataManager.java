@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,8 +29,13 @@ public class DataManager {
         this.password = password;
     }
 
-    //executes given sql string
-    public void writeToDB(String sql) {
+    /**
+     * executes given sql string
+     * @param sql to be executed
+     * @return  true if an exception is thrown
+     */
+    public boolean writeToDB(String sql) {
+        boolean error = false;
         try {
             con = DriverManager.getConnection(url, userid, password);
             System.out.println("Connected database successfully...");
@@ -37,10 +43,15 @@ public class DataManager {
             stmt.executeUpdate(sql);
             System.out.println("Data was written successfuly");
            //stmt.closeOnCompletion();
-           // con.close();
+            // con.close();
         } catch (Exception e) {
+            error = true;
             System.err.println(e);
+            if (e instanceof SQLIntegrityConstraintViolationException) {
+                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.ERROR_MESSAGE);
+            }
         }
+        return error;
     }
 
     /**
@@ -76,13 +87,13 @@ public class DataManager {
     }
 
     public static void main(String[] args) {
-        for(int i = 13445; i < 15104; i++){
+        for (int i = 13445; i < 15104; i++) {
 
             String sqlOne = "INSERT INTO S900750662.ITEMS(item_id, type, item_status_fk, library_id_fk) "
-                            + "VALUES(" + i + ", 3, " + (new Random().nextInt(5) + 1) + ", "
-                           + (new Random().nextInt(4) + 1) + ")";
+                    + "VALUES(" + i + ", 3, " + (new Random().nextInt(5) + 1) + ", "
+                    + (new Random().nextInt(4) + 1) + ")";
             System.out.println("id = " + i);
-                   new DataManager("S900691255", "1234").writeToDB(sqlOne);
+            new DataManager("S900691255", "1234").writeToDB(sqlOne);
         }
     }
 }

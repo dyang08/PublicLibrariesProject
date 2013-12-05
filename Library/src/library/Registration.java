@@ -20,12 +20,13 @@ public class Registration extends javax.swing.JFrame {
     static String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
     static Statement stmt;
     static Connection con;
-
+    DataManager dm;
     /**
      * Creates new form Registration
      */
     public Registration() {
         username = "";
+        dm = new DataManager("S900691255", "1234");
         initComponents();
     }
 
@@ -155,16 +156,15 @@ public class Registration extends javax.swing.JFrame {
             String sqlOne = "INSERT INTO S900750662.lib_users(TYPE, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME)"
                     + "VALUES(" + "2, '" + username + "', '" + passwrdLabel.getText()
                     + "', '" + fName.getText() + "', '" + lName.getText() + "')";
-
-//            String sqlTwo = "insert into S900750662.customer(status)\n"
-//                    + "values('active')";
-
-            new DataManager("S900691255", "1234").writeToDB(sqlOne);
-           // new DataManager("S900691255", "1234").writeToDB(sqlTwo);
             
-//go back to librarian window after changes have been made
-            new Search(username).setVisible(true);
-            this.setVisible(false);
+            
+            boolean error = dm.writeToDB(sqlOne);
+
+            //go back to librarian window after changes have been made
+            if (!error) {
+                new Search(username).setVisible(true);
+                this.setVisible(false);
+            }
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
