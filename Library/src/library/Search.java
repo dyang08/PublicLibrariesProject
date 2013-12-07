@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Search extends JFrame {
 
-    boolean logout;
+    boolean loggedIn;
     Login login;
     String username, type, criteria;
     int colCount = 0;
@@ -27,7 +28,7 @@ public class Search extends JFrame {
     public Search(String username) {
         initComponents();
         login = new Login();
-        logout = false;
+        loggedIn = false;
         this.username = username;
         type = "";
         criteria = "";
@@ -42,7 +43,7 @@ public class Search extends JFrame {
         if (username.length() > 1) {
             userLabel.setText(username);
             logButton.setText("logout");
-            logout = true;
+            loggedIn = true;
         }
     }
 
@@ -297,11 +298,11 @@ public class Search extends JFrame {
     }//GEN-LAST:event_typesActionPerformed
 
     private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
-        if (logout) {
+        if (loggedIn) {
             logButton.setText("login");
             userLabel.setText("");
             username = "";
-            logout = false;
+            loggedIn = false;
         } else {
             login.setVisible(true);
             this.setVisible(false);
@@ -318,7 +319,17 @@ public class Search extends JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         //testing
 
-
+        if (!loggedIn) {
+            JOptionPane.showConfirmDialog(this, "You need to be logged in to reserve", "warning", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            for (int i = 0; i < itemTable.getRowCount(); i++) {
+                if ((itemTable.getValueAt(i, itemTable.getColumnCount() - 1) != null)
+                        && itemTable.getValueAt(i, itemTable.getColumnCount() - 1).toString().equalsIgnoreCase("true")) {
+                    int id = Integer.parseInt(itemTable.getValueAt(i, 0).toString());
+                    new DataManager("S900691255", "1234").itemReserve(username, id);
+                }
+            }
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     /**

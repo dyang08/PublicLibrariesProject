@@ -5,8 +5,6 @@
  */
 package library;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.sql.*;
 import java.util.Random;
 import java.util.logging.Level;
@@ -18,13 +16,13 @@ import javax.swing.JOptionPane;
  * @author oscar
  */
 public class DataManager {
-
+    
     private String userid, password;
     private String url = "jdbc:oracle:thin:@cncsidb01.msudenver.edu:1521:DB01";
     private Statement stmt;
     private Connection con;
     private boolean error;
-
+    
     public DataManager(String userId, String password) {
         userid = userId;
         this.password = password;
@@ -52,7 +50,7 @@ public class DataManager {
             }
         }
     }
-
+    
     public boolean getErrorState() {
         return error;
     }
@@ -75,10 +73,10 @@ public class DataManager {
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return rs;
     }
-
+    
     public Connection connect() {
         try {
             con = DriverManager.getConnection(url, userid, password);
@@ -88,15 +86,34 @@ public class DataManager {
         System.out.println("Connected database successfully...");
         return con;
     }
-
-    public static void main(String[] args) {
-        for (int i = 13445; i < 15104; i++) {
-
-            String sqlOne = "INSERT INTO S900750662.ITEMS(item_id, type, item_status_fk, library_id_fk) "
-                    + "VALUES(" + i + ", 3, " + (new Random().nextInt(5) + 1) + ", "
-                    + (new Random().nextInt(4) + 1) + ")";
-            System.out.println("id = " + i);
-            new DataManager("S900691255", "1234").writeToDB(sqlOne);
+    
+    public void itemReserve(String userName, int ItemID) {
+        int userID = 0;
+        String customer = "SELECT customer_id "
+                + "FROM S900750662.LIB_USERS, S900750662.CUSTOMER "
+                + "WHERE username = '" + userName + "' and user_id_fk = user_id";
+        ResultSet rs = resultSet(customer);
+        try {
+            rs.next();
+            userID = rs.getInt("customer_id");
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String insertSQL = "INSERT INTO(item_id_fk, customer_id_fk) "
+                + "VALUES(" + ItemID + ", " + userID + ")";
+        
+        writeToDB(insertSQL);
+        
+        String updateSQL = "UPDATE S900750662.items "
+                + "SET item_status_fk = 5 "
+                + "WHERE item_id = " + ItemID;
+        
+        writeToDB(updateSQL);
+        
+        System.out.println("userid " + userID);
+    }
+    
+    public static void main(String[] args) {
+        
     }
 }
