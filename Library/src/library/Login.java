@@ -28,7 +28,6 @@ public class Login extends javax.swing.JFrame {
         passwrd = "";
         name = "";
         userID = 0;
-        
     }
 
     /**
