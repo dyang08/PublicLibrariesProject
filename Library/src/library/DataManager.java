@@ -6,7 +6,6 @@
 package library;
 
 import java.sql.*;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,6 +30,7 @@ public class DataManager {
 
     /**
      * executes given sql string
+     * @param sql
      */
     public void writeToDB(String sql) {
         try {
@@ -38,6 +38,7 @@ public class DataManager {
             System.out.println("Connected database successfully...");
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
+            System.out.println(sql);
             System.out.println("Data was written successfuly");
             //stmt.closeOnCompletion();
             // con.close();
@@ -68,6 +69,7 @@ public class DataManager {
             System.out.println("Connected database successfully...");
             stmt = con.createStatement();
             rs = stmt.executeQuery(sql);
+            System.out.println(sql);
             System.out.println("excecuted query");
             return rs;
         } catch (SQLException ex) {
@@ -99,7 +101,7 @@ public class DataManager {
         } catch (SQLException ex) {
             Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String insertSQL = "INSERT INTO(item_id_fk, customer_id_fk) "
+        String insertSQL = "INSERT INTO S900750662.item_reserves(item_id_fk, customer_id_fk) "
                 + "VALUES(" + ItemID + ", " + userID + ")";
         
         writeToDB(insertSQL);
