@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package library;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +17,15 @@ package library;
  */
 public class CheckOut extends javax.swing.JFrame {
 
+    int libNumber, itemNumber;
+
     /**
      * Creates new form CheckOut
      */
     public CheckOut() {
         initComponents();
+        libNumber = 0;
+        itemNumber = 0;
     }
 
     /**
@@ -43,6 +52,11 @@ public class CheckOut extends javax.swing.JFrame {
         jLabel2.setText("Item Number(ID):");
 
         checkOutButton.setText("Check-out");
+        checkOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkOutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,6 +94,61 @@ public class CheckOut extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
+        libNumber = Integer.parseInt(cardNumber.getText());
+        itemNumber = Integer.parseInt(itemID.getText());
+        int cusID = 0;
+        int cardRes = 0; //card number of person who reserved item if any
+        DataManager dm = new DataManager("S900691255", "1234");
+
+        String getCard = "SELECT card_number, customer_id\n"
+                + "FROM S900750662.ITEM_RESERVES, S900750662.CUSTOMER\n"
+                + "WHERE ITEM_RESERVES.ITEM_ID_FK = " + itemNumber + " and customer_id_fk = CUSTOMER_ID";
+
+        String getCusId = "SELECT customer_id\n"
+                + "S900750662.CUSTOMER\n"
+                + "card_number = " + libNumber;
+
+        ResultSet rs = dm.resultSet(getCard);
+        ResultSet rSet = dm.resultSet(getCusId);
+
+        try {
+            while (rs.next()) {
+                cardRes = rs.getInt("card_number");
+                cusID = rs.getInt("customer_id");
+            }
+            while (rSet.next()) {
+                if (cusID == 0) {
+                    cusID = rSet.getInt("customer_id");
+                }
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String insertSQL = "INSERT into S900750662.CHECK_OUTS(CHECK_OUT_DATE, customer_id_fk, Item_id_fk)\n"
+                + "values(CURRENT_TIMESTAMP, " + libNumber + ", " + itemNumber + ")";
+
+        String updateSQL = "UPDATE S900750662.items "
+                + "SET item_status_fk = 4 "
+                + "WHERE item_id = " + itemNumber;
+
+        String removeSQL = "DELETE FROM S900750662.ITEM_RESERVES "
+                + "WHERE item_id_fk = " + itemNumber;
+
+        if (cardRes == libNumber && cusID != 0) {
+            dm.writeToDB(insertSQL);
+            dm.writeToDB(updateSQL);
+            dm.writeToDB(removeSQL);
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Sorry someone else has reserved this item, talk to a librarian to solve this issue",
+                    "warning", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_checkOutButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -114,8 +114,4 @@ public class DataManager {
         
         System.out.println("userid " + userID);
     }
-    
-    public static void main(String[] args) {
-        
-    }
 }
