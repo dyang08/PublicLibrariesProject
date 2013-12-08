@@ -148,6 +148,9 @@ public class CheckOut extends javax.swing.JFrame {
                     "Sorry someone else has reserved this item, talk to a librarian to solve this issue",
                     "warning", JOptionPane.PLAIN_MESSAGE);
         }
+        
+        itemID.setText("");
+        cardNumber.setText("");
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
     /**
