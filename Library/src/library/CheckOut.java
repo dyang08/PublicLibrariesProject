@@ -107,7 +107,7 @@ public class CheckOut extends javax.swing.JFrame {
                 + "WHERE ITEM_RESERVES.ITEM_ID_FK = " + itemNumber + " and customer_id_fk = CUSTOMER_ID";
 
         String getCusId = "SELECT customer_id\n"
-                + "FROM 900750662.CUSTOMER\n"
+                + "FROM S900750662.CUSTOMER\n"
                 + "WHERE card_number = " + libNumber;
 
         ResultSet rs = dm.resultSet(getCard);
