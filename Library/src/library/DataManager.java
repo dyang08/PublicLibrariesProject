@@ -47,7 +47,7 @@ public class DataManager {
             error = true;
             if (e instanceof SQLIntegrityConstraintViolationException) {
                 error = true;
-                JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.PLAIN_MESSAGE);
+                //JOptionPane.showConfirmDialog(null, "This username already exists!", "warning", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
