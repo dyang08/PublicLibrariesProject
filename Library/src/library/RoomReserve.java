@@ -205,8 +205,9 @@ public class RoomReserve extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             //TODO insert room reservation in database
 
-            String sql = "INSERT INTO S900750662.ROOM_RESERVATION (TIME, DURATION, DATE, ROOM_ID_FK, CUSTOMER_ID_FK)\n"
-                    + "VALUES ('03:00 PM', '2:00', '12/11/13', '3', '8')";
+            String sql = "INSERT INTO S900750662.ROOM_RESERVATION (TIME, DURATION, RES_DATE, ROOM_ID_FK, CUSTOMER_ID_FK) "
+                    + "VALUES ('" + timeField.getText() + "', '" + durationField.getText() + "', '"  
+                    + dateField.getText() + "', " + roomField.getText() + ", " + customerID.getText() + ")";
 
             new DataManager("S900691255", "1234").writeToDB(sql);
 
