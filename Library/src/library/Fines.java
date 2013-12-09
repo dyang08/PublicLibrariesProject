@@ -43,6 +43,11 @@ public class Fines extends javax.swing.JFrame {
         jLabel1.setText("ID of item to be returned:");
 
         submitButton.setText("Submit fine");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitButtonActionPerformed(evt);
+            }
+        });
 
         backButton.setText("back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +115,14 @@ public class Fines extends javax.swing.JFrame {
         new Librarian().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+        String sql = "Insert into S900750662.fines(ITEM_ID_FK, CUSTOMER_ID_FK, AMOUNT) "
+                + "VALUES(" + itemId.getText() + ", " + customerId.getText()
+                + ", " + amount.getText() + ")";
+        new DataManager("S900691255", "1234").writeToDB(sql);
+        
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;

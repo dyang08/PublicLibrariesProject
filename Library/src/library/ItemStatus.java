@@ -131,6 +131,9 @@ public class ItemStatus extends javax.swing.JFrame {
                     + "WHERE item_id = " + itemId.getText();
             System.out.println(sql);
             new DataManager("S900691255", "1234").writeToDB(sql);
+            
+            itemId.setText("");
+            
         }
     }//GEN-LAST:event_submitButtonActionPerformed
 
