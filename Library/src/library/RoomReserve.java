@@ -5,7 +5,14 @@
  */
 package library;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +25,40 @@ public class RoomReserve extends javax.swing.JFrame {
      */
     public RoomReserve() {
         initComponents();
+        updateTable();
+    }
+
+    /**
+     * update table
+     */
+    private void updateTable() {
+        DefaultTableModel dtm = null;
+        String sql = "SELECT *\n"
+                + "FROM S900750662.room_reservation";
+
+        try {
+
+            ResultSet rs = new DataManager("S900691255", "1234").resultSet(sql);
+
+            Vector data = new Vector();
+            Vector columnName = new Vector();
+            for (int i = 0; i < 4; i++) {
+                columnName.add(roomTable.getColumnName(i));
+            }
+            while (rs.next()) {
+                Vector row = new Vector();
+                row.add(rs.getInt(4));
+                row.add(rs.getString(1));
+                row.add(rs.getString(2));
+                row.add(rs.getString(3));
+                data.add(row);
+            }
+            dtm = new DefaultTableModel(data, columnName);
+            roomTable.setModel(dtm);
+            roomTable.setRowSelectionAllowed(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -30,7 +71,7 @@ public class RoomReserve extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        roomTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         customerID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -47,15 +88,15 @@ public class RoomReserve extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Room Reservation");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        roomTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Room type", "Room number", "Time", "Duration", "Date"
+                "Room number", "Time", "Duration", "Date"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(roomTable);
 
         jLabel1.setText("Customer ID:");
 
@@ -63,13 +104,7 @@ public class RoomReserve extends javax.swing.JFrame {
 
         jLabel3.setText("Duration(h:mm):");
 
-        jLabel4.setText("Date(dd-mm-yy):");
-
-        dateField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateFieldActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("Date(dd/mm/yy):");
 
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -169,17 +204,18 @@ public class RoomReserve extends javax.swing.JFrame {
 
         if (option == JOptionPane.YES_OPTION) {
             //TODO insert room reservation in database
-            
+
+            String sql = "INSERT INTO S900750662.ROOM_RESERVATION (TIME, DURATION, DATE, ROOM_ID_FK, CUSTOMER_ID_FK)\n"
+                    + "VALUES ('03:00 PM', '2:00', '12/11/13', '3', '8')";
+
+            new DataManager("S900691255", "1234").writeToDB(sql);
+
             //go back to librarian window after changes have been made
             new Librarian().setVisible(true);
             this.setVisible(false);
         }
         // If user chooses no the program will just go back to window       
     }//GEN-LAST:event_submitButtonActionPerformed
-
-    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -193,8 +229,8 @@ public class RoomReserve extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField roomField;
+    private javax.swing.JTable roomTable;
     private javax.swing.JButton submitButton;
     private javax.swing.JTextField timeField;
     // End of variables declaration//GEN-END:variables
