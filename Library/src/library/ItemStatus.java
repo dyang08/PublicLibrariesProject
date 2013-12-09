@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package library;
 
 import javax.swing.JOptionPane;
@@ -14,11 +13,14 @@ import javax.swing.JOptionPane;
  */
 public class ItemStatus extends javax.swing.JFrame {
 
+    int itemStatus;
+
     /**
      * Creates new form ItemStatus
      */
     public ItemStatus() {
         initComponents();
+        itemStatus = 0;
     }
 
     /**
@@ -34,9 +36,8 @@ public class ItemStatus extends javax.swing.JFrame {
         itemId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        statusBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Change Item Status");
@@ -52,13 +53,6 @@ public class ItemStatus extends javax.swing.JFrame {
             }
         });
 
-        deleteButton.setText("Delete Item");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
-            }
-        });
-
         backButton.setText("back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +60,7 @@ public class ItemStatus extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Reserved", "Checked out", "Lost", "Damaged" }));
+        statusBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Reserved", "Checked out", "Lost", "Damaged" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,23 +69,19 @@ public class ItemStatus extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(submitButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(itemId, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(statusBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(submitButton))
                 .addContainerGap(185, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backButton)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,74 +90,72 @@ public class ItemStatus extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(itemId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitButton)
-                    .addComponent(deleteButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                    .addComponent(statusBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addComponent(submitButton)
+                .addGap(18, 18, 18)
                 .addComponent(backButton)
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /**
      * changes visibility to Librarian window
-     * @param event 
+     *
+     * @param event
      */
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         new Librarian().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
-    
+
     /**
-     * If user clicks submit button, a warning message will pop up 
-     * which will give the option cancel submission
-     * @param event 
+     * If user clicks submit button, a warning message will pop up which will
+     * give the option cancel submission
+     *
+     * @param event
      */
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to submit changes",
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to submit changes",
                 "warning", JOptionPane.YES_NO_OPTION);
-       // If user chooses no the program will just go back to window
-       if(option == JOptionPane.YES_OPTION){
-           //TODO SQL procedures
-           
-           //exit program after sql has being excecuted
-           //might change to Librarian window
-           System.exit(0); 
-       }       
+        // If user chooses no the program will just go back to window
+        if (option == JOptionPane.YES_OPTION) {
+            updateStatus();
+            //TODO SQL procedures
+            String sql = "UPDATE S900750662.items\n"
+                    + "SET item_status_fk = " + itemStatus + "\n"
+                    + "WHERE item_id = " + itemId.getText();
+            System.out.println(sql);
+            new DataManager("S900691255", "1234").writeToDB(sql);
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
-    
-    /**
-     * If user clicks delete button, a warning message will pop up 
-     * which will give the option cancel submission
-     * @param event 
-     */
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-       int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to submit changes",
-                "warning", JOptionPane.YES_NO_OPTION);
-       // If user chooses no the program will just go back to window
-       if(option == JOptionPane.YES_OPTION){
-           //TODO SQL procedure to remove item
-           
-           //exit program after sql has being excecuted
-           //might change to Librarian window
-           System.exit(0); 
-       }
-        
-    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void updateStatus() {
+        String s = statusBox.getSelectedItem().toString();
+        System.out.println(s);
+        if (s.equalsIgnoreCase("Available")) {
+            itemStatus = 1;
+        } else if (s.equalsIgnoreCase("Damaged")) {
+            itemStatus = 2;
+        } else if (s.equalsIgnoreCase("Lost")) {
+            itemStatus = 3;
+        } else if (s.equalsIgnoreCase("Damaged")) {
+            itemStatus = 4;
+        } else {
+            itemStatus = 5;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JButton deleteButton;
     private javax.swing.JTextField itemId;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox statusBox;
     private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }
